@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Fraud Shield</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1>User Profile</h1>
+    <div class="profile-info">
+        <div class="profile-picture">
+            {% if user.profile_picture %}
+                <img src="{{ url_for('static', filename=user.profile_picture.split('/')[-1]) }}" alt="Profile Picture" class="img-thumbnail">
+            {% else %}
+                <img src="{{ url_for('static', filename='default-profile.png') }}" alt="Profile Picture" class="img-thumbnail">
+            {% endif %}
+        </div>
+        <div class="profile-details">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+    </div>
+
+    <form action="{{ url_for('profile') }}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="profile_picture">Update Profile Picture:</label>
+            <input type="file" name="profile_picture" id="profile_picture" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+</body>
+</html>

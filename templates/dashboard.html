@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Fraud Shield</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-4 mb-4">Dashboard</h2>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger mb-4">Logout</a>
+    <a href="{{ url_for('profile') }}" class="btn btn-info mb-4">Profile</a>
+    <a href="{{ url_for('detect_website') }}" class="btn btn-primary mb-4">Detect Website</a>
+    <a href="{{ url_for('detect_message') }}" class="btn btn-secondary mb-4">Detect Message</a>
+
+    <h3>Recent Activity</h3>
+    <ul class="list-group">
+        {% for entry in history %}
+        <li class="list-group-item">
+            <strong>{{ entry.timestamp }}:</strong> {{ entry.type }} - {{ entry.content }} - {{ entry.result }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
+
